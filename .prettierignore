@@ -1,0 +1,17 @@
+# Generated output
+.next/
+out/
+build/
+coverage/
+next-env.d.ts
+
+# Dependencies and lockfiles
+node_modules/
+package-lock.json
+
+# Generated database migrations
+db/migrations/
+
+# Test reports
+playwright-report/
+test-results/
