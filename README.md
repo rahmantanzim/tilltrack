@@ -1,3 +1,15 @@
+## Getting started
+
+Requirements: Node.js 24 (see `.nvmrc`) and Docker.
+
+```bash
+npm install
+cp .env.example .env
+npm run db:up      # start PostgreSQL in Docker
+npm run dev        # http://localhost:3000
+```
+
+Checks: `npm run lint`, `npm run typecheck`, `npm test`, `npm run format:check`.
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
