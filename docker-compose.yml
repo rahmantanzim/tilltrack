@@ -1,0 +1,27 @@
+# Local development services. Not used in production (AWS RDS is used there).
+# Start: npm run db:up    Stop: npm run db:down
+
+name: tilltrack
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tilltrack
+      POSTGRES_PASSWORD: tilltrack
+      POSTGRES_DB: tilltrack
+    ports:
+      # Only reachable from this computer, not from the network.
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # PostgreSQL 18+ keeps its data under /var/lib/postgresql.
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tilltrack -d tilltrack"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  postgres-data:
