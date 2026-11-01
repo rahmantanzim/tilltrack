@@ -1,32 +1,36 @@
-# TillTrack
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-**Cash reconciliation for small retailers.** TillTrack tracks every dollar from the till to the bank: till counts, cash pickups, safe counts, deposits and card settlements. It flags discrepancies the moment they happen and produces an end-of-day report that always balances.
+## Getting Started
 
-> Status: early development. See the [requirements specification](docs/requirements.md).
+First, run the development server:
 
-## Why
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-In most small and mid-sized stores, cash reconciliation still lives on paper count sheets and spreadsheets. When a till comes up $40 short, nobody can easily answer *where* the money was last accounted for, or *who* handled it.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-I worked in a grocery store cash office and saw this first-hand: mid-day till counts, pickups from tills over the limit, evening entry in the cash office, manager verification, and a weekly armoured-car deposit. TillTrack turns that workflow into software.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Key ideas
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- **Every dollar is always in exactly one place.** Money moves between till, pickup bag, safe, deposit bag and bank, and every move is recorded.
-- **Nothing is ever edited or deleted.** Corrections are new records, so any till's history can be rebuilt exactly.
-- **Two people, not one.** The person who counts cash cannot be the person who verifies it.
-- **Each store sees only its own data**, enforced by the database itself (PostgreSQL row-level security), not just application code.
-- **Money is integer cents.** No floating-point rounding errors, ever.
+## Learn More
 
-## Tech stack (planned)
+To learn more about Next.js, take a look at the following resources:
 
-Next.js · TypeScript · PostgreSQL · Drizzle ORM · Docker · Playwright · GitHub Actions · AWS (ECS Fargate, RDS) · Terraform
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Documentation
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- [Requirements specification](docs/requirements.md)
-- Architecture and design (coming next)
+## Deploy on Vercel
 
-## License
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-MIT 
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
