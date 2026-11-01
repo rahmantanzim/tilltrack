@@ -311,6 +311,7 @@ The demo data and tests are based on a real grocery store setup:
 | Variance tolerance    | ±$20.00                                                        |
 | POS totals entered by | Cash Office Supervisor                                         |
 | Deposit schedule      | Weekly carrier pickup (Wednesday morning)                      |
+| Float overnight       | Stays in the drawer                                            |
 
 ## 11. Decisions log
 
@@ -323,3 +324,4 @@ The demo data and tests are based on a real grocery store setup:
 | D-5 | Must every staff member have a login?                        | No. Cashiers can exist as staff without logins, so variances can still be traced to them. |
 | D-6 | Can AI write money records?                                  | No. AI only suggests; a person confirms.                                                  |
 | D-7 | Are records ever edited?                                     | Ledger and history: never. Workflow records: yes, versioned, with every change logged.    |
+| D-8 | Where does the float stay overnight?                         | In the drawer. It carries over to the next day's till session. Configurable per store.    |

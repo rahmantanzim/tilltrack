@@ -169,7 +169,7 @@ flowchart LR
 
 When a count is recorded, the use case first moves the POS net cash into the till, which makes the till's balance equal **expected cash**. If the counted amount differs, one more entry moves the difference to or from `OVER_SHORT`, so the till's balance always equals what is physically there.
 
-Whether the float returns to `SAFE_FLOAT` at close or carries over in the drawer to the next day's till session is a store setting. Either way it is one entry.
+Whether the float returns to `SAFE_FLOAT` at close or carries over in the drawer to the next day's till session is a store setting (`float_overnight`, default `drawer`). With `drawer`, entry 8 moves the float from the closing till session to the next day's till session instead of to the safe. Either way it is one entry.
 
 ### 6.4 Rules enforced by the database
 
@@ -221,7 +221,7 @@ Every tenant table has `org_id` and (except org-level tables) `store_id`. All ID
 | Table                     | Key columns                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `organizations`           | id, name, created_at                                                                                                                                                       |
-| `stores`                  | id, org_id, name, timezone, currency, float_overnight (`drawer` \| `safe`)                                                                                                 |
+| `stores`                  | id, org_id, name, timezone, currency, float_overnight float_overnight (`drawer` \| `safe`, default `drawer`)                                                               |
 | `store_settings_versions` | id, store_id, variance_tolerance_cents, effective_from, created_by                                                                                                         |
 | `tills`                   | id, store_id, name, kind, active                                                                                                                                           |
 | `till_config_versions`    | id, till_id, float_cents, limit_cents, effective_from, created_by                                                                                                          |
