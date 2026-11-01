@@ -1,0 +1,14 @@
+# Normalize line endings to LF in the repository, whatever the OS.
+* text=auto eol=lf
+
+# Binary files: never touch line endings or diff as text.
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.woff binary
+*.woff2 binary
+
+# Lockfiles and generated SQL: collapse in GitHub diffs.
+package-lock.json linguist-generated=true -diff
+db/migrations/** linguist-generated=true
