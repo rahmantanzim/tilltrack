@@ -1,4 +1,4 @@
- /**
+/**
  * Turns an error into a short readable message for the terminal.
  *
  * Libraries often wrap the real database error inside `cause`

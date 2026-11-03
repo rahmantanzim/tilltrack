@@ -1,0 +1,418 @@
+{
+  "id": "184feb19-e522-4b0d-bd20-5c33db3bf056",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.organizations": {
+      "name": "organizations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "organizations_name_length": {
+          "name": "organizations_name_length",
+          "value": "char_length(\"organizations\".\"name\") BETWEEN 1 AND 200"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.stores": {
+      "name": "stores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'CAD'"
+        },
+        "float_overnight": {
+          "name": "float_overnight",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'drawer'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "stores_org_id_organizations_id_fk": {
+          "name": "stores_org_id_organizations_id_fk",
+          "tableFrom": "stores",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "org_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "stores_org_id_name_key": {
+          "name": "stores_org_id_name_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "org_id",
+            "name"
+          ]
+        },
+        "stores_org_id_id_key": {
+          "name": "stores_org_id_id_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "org_id",
+            "id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "stores_name_length": {
+          "name": "stores_name_length",
+          "value": "char_length(\"stores\".\"name\") BETWEEN 1 AND 100"
+        },
+        "stores_timezone_length": {
+          "name": "stores_timezone_length",
+          "value": "char_length(\"stores\".\"timezone\") BETWEEN 1 AND 64"
+        },
+        "stores_currency_check": {
+          "name": "stores_currency_check",
+          "value": "\"stores\".\"currency\" IN ('CAD')"
+        },
+        "stores_float_overnight_check": {
+          "name": "stores_float_overnight_check",
+          "value": "\"stores\".\"float_overnight\" IN ('drawer', 'safe')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.staff_members": {
+      "name": "staff_members",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employee_number": {
+          "name": "employee_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_owner": {
+          "name": "is_owner",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "staff_members_org_id_organizations_id_fk": {
+          "name": "staff_members_org_id_organizations_id_fk",
+          "tableFrom": "staff_members",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "org_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "staff_members_org_id_id_key": {
+          "name": "staff_members_org_id_id_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "org_id",
+            "id"
+          ]
+        },
+        "staff_members_org_id_employee_number_key": {
+          "name": "staff_members_org_id_employee_number_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "org_id",
+            "employee_number"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "staff_members_full_name_length": {
+          "name": "staff_members_full_name_length",
+          "value": "char_length(\"staff_members\".\"full_name\") BETWEEN 1 AND 200"
+        },
+        "staff_members_employee_number_length": {
+          "name": "staff_members_employee_number_length",
+          "value": "\"staff_members\".\"employee_number\" IS NULL OR char_length(\"staff_members\".\"employee_number\") BETWEEN 1 AND 50"
+        },
+        "staff_members_status_check": {
+          "name": "staff_members_status_check",
+          "value": "\"staff_members\".\"status\" IN ('active', 'inactive')"
+        },
+        "staff_members_version_positive": {
+          "name": "staff_members_version_positive",
+          "value": "\"staff_members\".\"version\" >= 1"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.store_roles": {
+      "name": "store_roles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "uuidv7()"
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "store_id": {
+          "name": "store_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "staff_id": {
+          "name": "staff_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "store_roles_org_id_staff_id_idx": {
+          "name": "store_roles_org_id_staff_id_idx",
+          "columns": [
+            {
+              "expression": "org_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "staff_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "store_roles_store_fk": {
+          "name": "store_roles_store_fk",
+          "tableFrom": "store_roles",
+          "tableTo": "stores",
+          "columnsFrom": [
+            "org_id",
+            "store_id"
+          ],
+          "columnsTo": [
+            "org_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "store_roles_staff_fk": {
+          "name": "store_roles_staff_fk",
+          "tableFrom": "store_roles",
+          "tableTo": "staff_members",
+          "columnsFrom": [
+            "org_id",
+            "staff_id"
+          ],
+          "columnsTo": [
+            "org_id",
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "store_roles_store_id_staff_id_key": {
+          "name": "store_roles_store_id_staff_id_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "store_id",
+            "staff_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "store_roles_role_check": {
+          "name": "store_roles_role_check",
+          "value": "\"store_roles\".\"role\" IN ('employee', 'supervisor', 'cos', 'manager', 'viewer')"
+        },
+        "store_roles_status_check": {
+          "name": "store_roles_status_check",
+          "value": "\"store_roles\".\"status\" IN ('active', 'inactive')"
+        },
+        "store_roles_version_positive": {
+          "name": "store_roles_version_positive",
+          "value": "\"store_roles\".\"version\" >= 1"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
