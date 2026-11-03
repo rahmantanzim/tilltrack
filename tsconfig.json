@@ -20,6 +20,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
 
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"]
